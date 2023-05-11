@@ -58,9 +58,6 @@ public class SelenideTestSyllabus {
                 logger.error("Error accepting cookies");
             }
 
-            // <button class="button is-medium ltu-search-btn" aria-label="Sök" onclick="showTopInput()">
-            //                    <i class="fa fa-search" aria-hidden="true"></i>
-            //                </button>
             //click on search button
             try{
             var element = $(byXpath("//button[@class='button is-medium ltu-search-btn']"));
@@ -81,6 +78,28 @@ public class SelenideTestSyllabus {
                     logger.error("Error searching for course I0015N");
                 }
               sleep(3000);
+
+            //click on the syllabus link
+            try{
+                var element = $(byXpath("//a[contains(@href, 'https://www.ltu.se/edu/course/I00/I0015N/I0015N-Test-av-IT-system-1.81215?kursView=kursplan')]"));
+                element.click();
+                logger.info("Syllabus link clicked");
+            } catch (ElementNotFound e) {
+                logger.error("Error clicking syllabus link");
+            }
+
+            //open syllabus
+            //open("https://www.ltu.se/edu/course/I00/I0015N/I0015N-Test-av-IT-system-1.81215?kursView=kursplan&termin=V23");
+
+            //click on the pdf file link and download the pdf file called "Kursplan antagna: Våren 2023, Läsperiod 4, Kurstillfälle 47000, 47455"
+            try{
+                var element = $(byXpath("//a[contains(@href, 'pdf')]"));
+                element.click();
+                logger.info("Downloaded pdf file");
+            } catch (ElementNotFound e) {
+                logger.error("Error downloading pdf file");
+            }
+            sleep(3000);
 
 
         }
