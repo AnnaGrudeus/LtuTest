@@ -12,6 +12,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
+import org.openqa.selenium.Keys;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +40,31 @@ public class SelenideTestSyllabus {
 
     @Test
     public void loginTest() {
+
+            open("https://ltu.se");
+
+            var element = $(byText("Tillåt urval"));
+            element.click();
+
+            // <button class="button is-medium ltu-search-btn" aria-label="Sök" onclick="showTopInput()">
+            //                    <i class="fa fa-search" aria-hidden="true"></i>
+            //                </button>
+            element = $(byXpath("//button[@class='button is-medium ltu-search-btn']"));
+            element.click();
+
+            sleep(3000);
+
+            element = $(byXpath("//input[@id='cludo-search-bar-input']"));
+
+            element.sendKeys("I0015N");
+            element.sendKeys(Keys.ENTER); // press the enter key instead of clicking the search button
+            sleep(3000);
+
+
+        }
+        /*
+
+
         // Code to retrieve login credentials
         File jsonFile = new File("C:\\temp\\ltu.json");
         String email = null;
@@ -162,9 +188,11 @@ public class SelenideTestSyllabus {
       logger.error("Failed to click on Sök button");
     }
 
-     */
+        // DOES NOT WORK </button> is not clickable at point (1253, 80)
 
         // show search result for "I0015N"
+
+
         try {
             open("https://www.ltu.se/ltu/search#?cludoquery=I0015N&cludocrawlerLang=Swedish&cludopage=1&cludorefurl=https%3A%2F%2Fwww.ltu.se%2Fedu%2Fcourse%2FI00%2FI0015N%2FI0015N-Test-av-IT-system-1.81215&cludorefpt=Test%20av%20IT-system%2C%20Kurs%2C%20testfall%20testprinciper%20testprocesser%20riskhantering%20testfaser%20mjukvarutest%20testdesign%20testplan%20-%20V%C3%A5ren%202023%20-%20Lule%C3%A5%20tekniska%20universitet%2C%20LTU&cludoinputtype=standard");
             logger.info("Search result for I0015N");
@@ -193,7 +221,7 @@ public class SelenideTestSyllabus {
       logger.error("Kursplan not found");
     }
 
-     */
+
 
         //DOES NOT WORK is not clickable at point (1265, 500)
         //click in kursplan
@@ -204,4 +232,6 @@ public class SelenideTestSyllabus {
             logger.error("Kursplan not found");
         }
     }
+
+         */
 }
