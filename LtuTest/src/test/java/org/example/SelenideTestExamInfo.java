@@ -1,6 +1,7 @@
 package org.example;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Screenshots;
 import com.codeborne.selenide.SelenideElement;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,9 +10,12 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
-
+import java.nio.file.Files;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byXpath;
@@ -141,7 +145,18 @@ public class SelenideTestExamInfo {
             logger.error("Text not found on the page");
         }
 
-        sleep(3000);
+        sleep(1000);
+
+        String screenshotName = "final_examination.jpeg";
+        File screenshot = Screenshots.takeScreenShotAsFile();
+        Path destination = Paths.get("C:\\Users\\Anna Grudeus\\IdeaProjects\\LtuTest\\LtuTest\\target\\downloads", screenshotName);
+
+        try {
+            Files.copy(screenshot.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+            logger.info("Screenshot saved to: " + destination.toString());
+        } catch (IOException e) {
+            logger.error("Failed to save screenshot: " + e.getMessage());
+        }
 
     }
 }
